@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(pnpm -v)",
+      "Bash(npm ls:*)",
+      "Bash(corepack -v)",
+      "Bash(npm install:*)",
+      "Bash(cd ~/Documents/my-projects/Ballu*/)",
+      "Bash(pnpm create:*)",
+      "Bash(shopt -s dotglob)",
+      "Bash(mv temp-project/* temp-project/.* .)",
+      "Bash(rmdir temp-project:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm approve-builds:*)",
+      "Bash(pnpm install:*)",
+      "Bash(python3 -c \" import json, sys d = json.load\\(sys.stdin\\) d['pnpm'] = {'onlyBuiltDependencies': ['esbuild', 'msgpackr-extract']} json.dump\\(d, sys.stdout, indent=2\\) \")",
+      "Bash(pnpm dlx:*)"
+    ]
+  }
+}
