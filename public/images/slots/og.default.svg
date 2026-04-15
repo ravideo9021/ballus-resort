@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="og" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B1B22"/>
+      <stop offset="100%" stop-color="#0F3B47"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#og)"/>
+  <!-- peaks -->
+  <polygon points="0,460 180,340 360,420 540,300 720,420 900,340 1080,440 1200,400 1200,630 0,630" fill="#081318"/>
+  <!-- gold line -->
+  <line x1="400" y1="280" x2="800" y2="280" stroke="#C9A24B" stroke-width="2"/>
+  <text x="600" y="250" text-anchor="middle" font-family="Georgia, serif" font-size="52" font-style="italic" fill="#E5C97A">Ballu&#8217;s Resort &amp; Caf&#233;</text>
+  <text x="600" y="330" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" letter-spacing="6" fill="#C9A24B">WHERE THE RIVER MEETS THE MOUNTAINS</text>
+</svg>

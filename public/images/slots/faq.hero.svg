@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="900" fill="#0F3B47"/>
+  <!-- giant gold question mark -->
+  <text x="800" y="620" text-anchor="middle" font-family="Georgia, serif" font-size="500" fill="#C9A24B" opacity="0.12">?</text>
+  <text x="800" y="420" text-anchor="middle" font-family="Georgia, serif" font-size="64" font-style="italic" fill="#E5C97A">Questions &amp; Answers</text>
+  <text x="800" y="480" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" letter-spacing="6" fill="#C9A24B">FREQUENTLY ASKED</text>
+</svg>

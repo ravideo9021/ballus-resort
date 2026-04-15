@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="900" fill="#0F3B47"/>
+  <!-- envelope -->
+  <g transform="translate(800,540)">
+    <rect x="-240" y="-120" width="480" height="240" fill="#0B1B22" stroke="#C9A24B" stroke-width="3"/>
+    <polyline points="-240,-120 0,40 240,-120" fill="none" stroke="#C9A24B" stroke-width="3"/>
+  </g>
+  <!-- pin -->
+  <circle cx="1340" cy="220" r="30" fill="none" stroke="#C9A24B" stroke-width="3"/>
+  <circle cx="1340" cy="220" r="10" fill="#C9A24B"/>
+  <path d="M1340,250 L1340,300" stroke="#C9A24B" stroke-width="3"/>
+  <text x="800" y="280" text-anchor="middle" font-family="Georgia, serif" font-size="64" font-style="italic" fill="#E5C97A">Get in Touch</text>
+  <text x="800" y="340" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" letter-spacing="6" fill="#C9A24B">PLAN YOUR STAY</text>
+</svg>

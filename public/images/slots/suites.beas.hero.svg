@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="river" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F3B47"/>
+      <stop offset="60%" stop-color="#1A6B7A"/>
+      <stop offset="100%" stop-color="#0B1B22"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#river)"/>
+  <!-- river waves -->
+  <path d="M0,600 Q200,570 400,600 T800,600 T1200,600 T1600,600 L1600,900 L0,900 Z" fill="#0B1B22" opacity="0.5"/>
+  <path d="M0,680 Q200,650 400,680 T800,680 T1200,680 T1600,680 L1600,900 L0,900 Z" fill="#0B1B22" opacity="0.7"/>
+  <path d="M0,760 Q200,730 400,760 T800,760 T1200,760 T1600,760 L1600,900 L0,900 Z" fill="#0B1B22"/>
+  <!-- light ripples -->
+  <path d="M200,580 Q240,570 280,580" stroke="#E5C97A" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M900,590 Q940,580 980,590" stroke="#E5C97A" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M1300,595 Q1340,585 1380,595" stroke="#E5C97A" stroke-width="2" fill="none" opacity="0.5"/>
+  <text x="800" y="420" text-anchor="middle" font-family="Georgia, serif" font-size="68" font-style="italic" fill="#E5C97A">Beas Suites</text>
+  <text x="800" y="490" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" letter-spacing="6" fill="#C9A24B">RIVERSIDE CABINS</text>
+</svg>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" preserveAspectRatio="xMidYMid slice">
+  <rect width="1200" height="1500" fill="#0F3B47"/>
+  <!-- tall window pane -->
+  <rect x="200" y="180" width="800" height="1140" fill="none" stroke="#C9A24B" stroke-width="3" opacity="0.5"/>
+  <line x1="600" y1="180" x2="600" y2="1320" stroke="#C9A24B" stroke-width="2" opacity="0.4"/>
+  <line x1="200" y1="750" x2="1000" y2="750" stroke="#C9A24B" stroke-width="2" opacity="0.4"/>
+  <!-- mountain view through window -->
+  <polygon points="200,640 340,480 480,580 620,420 780,560 940,500 1000,620 1000,750 200,750" fill="#081318" opacity="0.8"/>
+  <text x="600" y="860" text-anchor="middle" font-family="Georgia, serif" font-size="58" font-style="italic" fill="#E5C97A">The River.</text>
+  <text x="600" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="58" font-style="italic" fill="#E5C97A">The Mountains.</text>
+  <text x="600" y="1000" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" letter-spacing="6" fill="#C9A24B">INTRO &#183; SIDE</text>
+</svg>

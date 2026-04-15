@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="900" fill="#0F3B47"/>
+  <!-- open book -->
+  <g transform="translate(800,500)">
+    <path d="M-300,-120 L-10,-100 L-10,120 L-300,100 Z" fill="#0B1B22" stroke="#C9A24B" stroke-width="2"/>
+    <path d="M300,-120 L10,-100 L10,120 L300,100 Z" fill="#0B1B22" stroke="#C9A24B" stroke-width="2"/>
+    <line x1="-260" y1="-70" x2="-50" y2="-55" stroke="#C9A24B" stroke-width="1" opacity="0.5"/>
+    <line x1="-260" y1="-40" x2="-50" y2="-25" stroke="#C9A24B" stroke-width="1" opacity="0.5"/>
+    <line x1="-260" y1="-10" x2="-50" y2="5" stroke="#C9A24B" stroke-width="1" opacity="0.5"/>
+    <line x1="-260" y1="20" x2="-50" y2="35" stroke="#C9A24B" stroke-width="1" opacity="0.5"/>
+    <line x1="-260" y1="50" x2="-50" y2="65" stroke="#C9A24B" stroke-width="1" opacity="0.5"/>
+    <line x1="50" y1="-55" x2="260" y2="-70" stroke="#C9A24B" stroke-width="1" opacity="0.5"/>
+    <line x1="50" y1="-25" x2="260" y2="-40" stroke="#C9A24B" stroke-width="1" opacity="0.5"/>
+    <line x1="50" y1="5" x2="260" y2="-10" stroke="#C9A24B" stroke-width="1" opacity="0.5"/>
+    <line x1="50" y1="35" x2="260" y2="20" stroke="#C9A24B" stroke-width="1" opacity="0.5"/>
+    <line x1="50" y1="65" x2="260" y2="50" stroke="#C9A24B" stroke-width="1" opacity="0.5"/>
+  </g>
+  <text x="800" y="280" text-anchor="middle" font-family="Georgia, serif" font-size="64" font-style="italic" fill="#E5C97A">The Journal</text>
+  <text x="800" y="340" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" letter-spacing="6" fill="#C9A24B">NOTES FROM THE VALLEY</text>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="900" fill="#0F3B47"/>
+  <!-- boardroom table -->
+  <ellipse cx="800" cy="680" rx="500" ry="80" fill="#0B1B22"/>
+  <ellipse cx="800" cy="670" rx="500" ry="80" fill="#081318"/>
+  <!-- chairs -->
+  <g fill="#0B1B22">
+    <rect x="360" y="600" width="40" height="80"/>
+    <rect x="540" y="580" width="40" height="80"/>
+    <rect x="740" y="570" width="40" height="80"/>
+    <rect x="940" y="570" width="40" height="80"/>
+    <rect x="1140" y="580" width="40" height="80"/>
+    <rect x="1200" y="600" width="40" height="80"/>
+  </g>
+  <text x="800" y="360" text-anchor="middle" font-family="Georgia, serif" font-size="64" font-style="italic" fill="#E5C97A">Conferences</text>
+  <text x="800" y="420" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" letter-spacing="6" fill="#C9A24B">CORPORATE RETREATS</text>
+</svg>
