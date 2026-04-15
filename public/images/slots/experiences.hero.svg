@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="900" fill="#0F3B47"/>
+  <!-- paragliding silhouette -->
+  <path d="M300,220 Q400,160 500,220 Q440,230 400,250 Q360,230 300,220 Z" fill="#C9A24B" opacity="0.8"/>
+  <line x1="360" y1="220" x2="380" y2="280" stroke="#C9A24B" stroke-width="1"/>
+  <line x1="440" y1="220" x2="420" y2="280" stroke="#C9A24B" stroke-width="1"/>
+  <circle cx="400" cy="290" r="6" fill="#E5C97A"/>
+  <!-- sun -->
+  <circle cx="1260" cy="220" r="60" fill="#E5C97A" opacity="0.6"/>
+  <!-- peaks -->
+  <polygon points="0,660 240,480 480,560 720,440 960,560 1200,480 1440,560 1600,480 1600,900 0,900" fill="#081318"/>
+  <text x="800" y="400" text-anchor="middle" font-family="Georgia, serif" font-size="62" font-style="italic" fill="#E5C97A">Experiences</text>
+  <text x="800" y="460" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" letter-spacing="6" fill="#C9A24B">BEYOND THE RESORT</text>
+</svg>

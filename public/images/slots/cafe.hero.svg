@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="900" fill="#0F3B47"/>
+  <!-- warm window glow -->
+  <rect x="0" y="0" width="1600" height="900" fill="#C9A24B" opacity="0.04"/>
+  <!-- coffee cup silhouette -->
+  <ellipse cx="800" cy="560" rx="110" ry="24" fill="#0B1B22"/>
+  <path d="M690,560 Q690,700 800,720 Q910,700 910,560 Z" fill="#0B1B22" stroke="#C9A24B" stroke-width="2"/>
+  <path d="M910,580 Q980,580 980,620 Q980,660 910,660" stroke="#C9A24B" stroke-width="2" fill="none"/>
+  <!-- steam -->
+  <path d="M760,540 Q750,510 770,480 Q790,450 770,420" stroke="#E5C97A" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M800,540 Q810,510 790,480 Q770,450 800,420" stroke="#E5C97A" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M840,540 Q830,510 850,480 Q870,450 850,420" stroke="#E5C97A" stroke-width="2" fill="none" opacity="0.6"/>
+  <!-- pendant lights -->
+  <line x1="300" y1="0" x2="300" y2="180" stroke="#C9A24B" stroke-width="1"/>
+  <circle cx="300" cy="200" r="20" fill="#E5C97A" opacity="0.8"/>
+  <line x1="1300" y1="0" x2="1300" y2="180" stroke="#C9A24B" stroke-width="1"/>
+  <circle cx="1300" cy="200" r="20" fill="#E5C97A" opacity="0.8"/>
+  <text x="800" y="300" text-anchor="middle" font-family="Georgia, serif" font-size="68" font-style="italic" fill="#E5C97A">The Caf&#233;</text>
+  <text x="800" y="360" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" letter-spacing="6" fill="#C9A24B">ARTISAN DINING</text>
+</svg>
