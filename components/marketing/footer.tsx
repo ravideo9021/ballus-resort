@@ -93,9 +93,9 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:contact@ballusresort.com" className="flex gap-3 hover:text-[#C9A24B] transition-colors">
+                <a href="mailto:ballusresort@gmail.com" className="flex gap-3 hover:text-[#C9A24B] transition-colors">
                   <Mail className="w-4 h-4 mt-0.5 text-[#C9A24B] flex-shrink-0" />
-                  <span>contact@ballusresort.com</span>
+                  <span>ballusresort@gmail.com</span>
                 </a>
               </li>
               <li>

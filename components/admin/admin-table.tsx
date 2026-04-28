@@ -60,7 +60,7 @@ export function AdminTable<T>({
                     key={getRowKey(row)}
                     className="border-t border-[#0B1B22]/5 hover:bg-[#C9A24B]/5 transition-colors cursor-pointer"
                   >
-                    {columns.map((c, i) => (
+                    {columns.map((c) => (
                       <td
                         key={c.key}
                         className={`px-6 py-4 text-[#0B1B22]/80 ${c.className ?? ""}`}

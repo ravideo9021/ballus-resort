@@ -5,7 +5,7 @@ export function lodgingBusinessSchema() {
     name: "Ballu's Resort & Café",
     description:
       "A premium Himalayan resort & café on the banks of the Beas River in Manali. Luxury suites, destination weddings, conferences, and artisan dining.",
-    url: process.env.NEXTAUTH_URL || "https://ballusresort.com",
+    url: process.env.NEXTAUTH_URL || "https://ballus-resort.vercel.app",
     telephone: "+918796017034",
     address: {
       "@type": "PostalAddress",
@@ -41,7 +41,7 @@ export function restaurantSchema() {
     name: "Ballu's Café",
     description:
       "A premium handcrafted wooden café in the Beas Valley. Artisan brews, Himalayan cuisine, and panoramic mountain views.",
-    url: `${process.env.NEXTAUTH_URL || "https://ballusresort.com"}/cafe`,
+    url: `${process.env.NEXTAUTH_URL || "https://ballus-resort.vercel.app"}/cafe`,
     telephone: "+918796017034",
     address: {
       "@type": "PostalAddress",
@@ -82,7 +82,7 @@ export function blogPostSchema(post: {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt || "",
-    url: `${process.env.NEXTAUTH_URL || "https://ballusresort.com"}/journal/${post.slug}`,
+    url: `${process.env.NEXTAUTH_URL || "https://ballus-resort.vercel.app"}/journal/${post.slug}`,
     image: post.coverImageUrl || "/og-default.jpg",
     datePublished: post.publishedAt?.toISOString() || new Date().toISOString(),
     author: {
@@ -106,7 +106,7 @@ export function breadcrumbSchema(
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${process.env.NEXTAUTH_URL || "https://ballusresort.com"}${item.url}`,
+      item: `${process.env.NEXTAUTH_URL || "https://ballus-resort.vercel.app"}${item.url}`,
     })),
   };
 }

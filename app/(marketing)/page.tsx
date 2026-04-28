@@ -193,7 +193,7 @@ export default async function HomePage() {
       ]).slice(0, 6);
 
   const contactPhone = settings?.phone || "+91 8796017034";
-  const contactEmail = settings?.email || "contact@ballusresort.com";
+  const contactEmail = settings?.email || "ballusresort@gmail.com";
   const whatsappNumber = settings?.whatsapp || "918796017034";
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
   const contactAddress =

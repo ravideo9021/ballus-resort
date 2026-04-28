@@ -1,4 +1,5 @@
 import DOMPurify from "isomorphic-dompurify";
+import Image from "next/image";
 
 type RichNode = {
   type?: string;
@@ -122,7 +123,17 @@ function renderNodes(nodes: RichNode[] | undefined, keyPrefix: string): React.Re
       const src = typeof node.attrs?.src === "string" ? node.attrs.src : "";
       const alt = typeof node.attrs?.alt === "string" ? node.attrs.alt : "";
       if (!src) return null;
-      return <img key={key} src={src} alt={alt} className="my-8 w-full object-cover" />;
+      return (
+        <Image
+          key={key}
+          src={src}
+          alt={alt}
+          width={1200}
+          height={800}
+          sizes="(min-width: 1024px) 960px, 100vw"
+          className="my-8 w-full object-cover"
+        />
+      );
     }
 
     return <div key={key}>{renderNodes(node.content, key)}</div>;

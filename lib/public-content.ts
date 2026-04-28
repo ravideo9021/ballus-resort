@@ -35,7 +35,7 @@ export function resolveManagedImage(
 }
 
 export async function getSiteSettings() {
-  const rows = await db.select().from(siteSettings).limit(1);
+  const rows = await db.select().from(siteSettings).orderBy(asc(siteSettings.id)).limit(1);
   return rows[0] ?? null;
 }
 

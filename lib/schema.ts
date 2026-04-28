@@ -7,7 +7,6 @@ import {
   serial,
   json,
   real,
-  uniqueIndex,
 } from "drizzle-orm/pg-core";
 
 // ─── Users ──────────────────────────────────────────
@@ -24,7 +23,7 @@ export const siteSettings = pgTable("site_settings", {
   id: serial("id").primaryKey(),
   phone: text("phone").notNull().default("+91 8796017034"),
   whatsapp: text("whatsapp").notNull().default("918796017034"),
-  email: text("email").notNull().default("contact@ballusresort.com"),
+  email: text("email").notNull().default("ballusresort@gmail.com"),
   address: text("address")
     .notNull()
     .default("14 Mile Road, Beas Riverside, Manali — 175131"),

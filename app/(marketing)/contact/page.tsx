@@ -27,7 +27,7 @@ export default async function ContactPage() {
   const lat = settings?.mapLat ?? 32.2396;
   const lng = settings?.mapLng ?? 77.1887;
   const phone = settings?.phone || "+91 8796017034";
-  const email = settings?.email || "contact@ballusresort.com";
+  const email = settings?.email || "ballusresort@gmail.com";
   const whatsapp = settings?.whatsapp || "918796017034";
   const address = settings?.address || "14 Mile Road, Beas Riverside, Manali — 175131";
 

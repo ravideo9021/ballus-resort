@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import Script from "next/script";
 import { resolveSlotImage } from "@/lib/site-images";
@@ -21,8 +23,10 @@ const inter = Inter({
 export async function generateMetadata(): Promise<Metadata> {
   const og = await resolveSlotImage("og.default");
   const ogUrl = og.url || "/og-default.jpg";
+  const siteUrl = process.env.NEXTAUTH_URL || "https://ballus-resort.vercel.app";
+
   return {
-    metadataBase: new URL(process.env.NEXTAUTH_URL || "http://localhost:3000"),
+    metadataBase: new URL(siteUrl),
     title: {
       default: "Ballu's Resort & Café — Where the River Meets the Mountains",
       template: "%s | Ballu's Resort & Café",
@@ -40,9 +44,13 @@ export async function generateMetadata(): Promise<Metadata> {
       "Ballu's Resort",
       "premium resort Himachal Pradesh",
     ],
+    alternates: {
+      canonical: "/",
+    },
     openGraph: {
       type: "website",
       locale: "en_IN",
+      url: siteUrl,
       siteName: "Ballu's Resort & Café",
       title: "Ballu's Resort & Café — Where the River Meets the Mountains",
       description:
@@ -77,6 +85,8 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         {children}
+        <Analytics />
+        <SpeedInsights />
         {gaId && (
           <>
             <Script

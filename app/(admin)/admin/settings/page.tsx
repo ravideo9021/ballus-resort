@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { siteSettings } from "@/lib/schema";
 import { PageHeader } from "@/components/admin/page-header";
 import { SettingsForm } from "./settings-form";
+import { asc } from "drizzle-orm";
 
 export const metadata = {
   title: "Site Settings — Ballu's Admin",
@@ -9,7 +10,7 @@ export const metadata = {
 };
 
 export default async function SettingsPage() {
-  const [settings] = await db.select().from(siteSettings).limit(1);
+  const [settings] = await db.select().from(siteSettings).orderBy(asc(siteSettings.id)).limit(1);
 
   return (
     <div className="p-10">
