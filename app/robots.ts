@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE = process.env.NEXTAUTH_URL || "https://ballusresort.com";
+const BASE = process.env.NEXTAUTH_URL || "https://ballus-resort.vercel.app";
 
 export default function robots(): MetadataRoute.Robots {
   return {

@@ -113,13 +113,13 @@ cp .env.example .env.local
 |---|---|
 | `DATABASE_URL` | Neon Postgres connection string (required) |
 | `NEXTAUTH_SECRET` | Random 32+ char string — `openssl rand -base64 32` |
-| `NEXTAUTH_URL` | Your site URL (e.g. `http://localhost:3000` locally, `https://ballusresort.com` in prod) |
-| `ADMIN_EMAIL` | Admin login email |
+| `NEXTAUTH_URL` | Your site URL (`https://ballus-resort.vercel.app` in production) |
+| `ADMIN_EMAIL` | Admin login email (`ballusresort@gmail.com`) |
 | `ADMIN_PASSWORD_HASH` | Bcrypt hash of admin password — generate with `pnpm hash-password` |
 | `UPLOADTHING_TOKEN` | From the UploadThing dashboard |
 | `RESEND_API_KEY` | From resend.com |
-| `RESEND_FROM_EMAIL` | e.g. `hello@ballusresort.com` (domain must be verified with Resend) |
-| `INQUIRY_NOTIFICATION_EMAIL` | Where inquiry notifications are delivered |
+| `RESEND_FROM_EMAIL` | Sender address configured in Resend. Use `ballusresort@gmail.com` only if Resend allows that verified sender; otherwise use a verified domain sender. |
+| `INQUIRY_NOTIFICATION_EMAIL` | Where inquiry notifications are delivered (`ballusresort@gmail.com`) |
 | `NEXT_PUBLIC_GA_ID` | Google Analytics 4 measurement ID (optional) |
 | `GOOGLE_SITE_VERIFICATION` | Search Console verification token (optional) |
 
@@ -198,10 +198,11 @@ Sign in to `/admin/images` to upload, replace, or clear any slot image and edit 
 4. **Push this repo** to GitHub.
 5. **Import the repo on Vercel** ([vercel.com/new](https://vercel.com/new)).
 6. Under **Environment Variables**, paste every key from `.env.example` (values from steps 1–3 + a random `NEXTAUTH_SECRET` and your admin credentials).
-7. Set `NEXTAUTH_URL` to your Vercel production URL (e.g. `https://ballusresort.vercel.app`).
+7. Set `NEXTAUTH_URL` to your Vercel production URL (`https://ballus-resort.vercel.app`).
 8. **Deploy.** First deploy will schema-migrate via `pnpm db:push` if you add it as a post-install step (or run once manually: `pnpm db:push` with production `DATABASE_URL`).
 9. **Seed production:** `DATABASE_URL=<prod-url> pnpm db:seed` (once).
 10. **Add your custom domain** in Vercel → Project → Domains. Update `NEXTAUTH_URL` to the custom domain.
+11. **Analytics:** Enable Web Analytics and Speed Insights in the Vercel dashboard. The app includes `@vercel/analytics` and `@vercel/speed-insights` in the root layout, so data starts flowing after redeploy.
 
 ---
 
@@ -221,7 +222,7 @@ The site is structured with `LodgingBusiness` JSON-LD and a proper sitemap. For 
 
 1. Register the site at [search.google.com/search-console](https://search.google.com/search-console).
 2. Verify using the **HTML tag** method — paste the token into `GOOGLE_SITE_VERIFICATION` env var and redeploy.
-3. Submit `https://ballusresort.com/sitemap.xml`.
+3. Submit `https://ballus-resort.vercel.app/sitemap.xml`.
 4. Watch for crawl errors and fix any.
 
 ---

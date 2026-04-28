@@ -49,7 +49,7 @@ export function SettingsForm({ settings }: { settings: SiteSettings | null }) {
               id="email"
               name="email"
               type="email"
-              defaultValue={settings?.email ?? "contact@ballusresort.com"}
+              defaultValue={settings?.email ?? "ballusresort@gmail.com"}
               required
             />
           </Field>

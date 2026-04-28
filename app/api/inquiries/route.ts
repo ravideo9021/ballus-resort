@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { after, NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { inquiries } from "@/lib/schema";
 import { inquirySchema } from "@/lib/validators";
@@ -37,11 +37,16 @@ export async function POST(req: NextRequest) {
       message: data.message || null,
     });
 
-    // Send emails (don't block response on email failures)
-    Promise.all([
-      sendInquiryNotification(data),
-      sendInquiryConfirmation({ name: data.name, email: data.email }),
-    ]).catch(console.error);
+    after(async () => {
+      try {
+        await Promise.all([
+          sendInquiryNotification(data),
+          sendInquiryConfirmation({ name: data.name, email: data.email }),
+        ]);
+      } catch (error) {
+        console.error("Inquiry email error:", error);
+      }
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {

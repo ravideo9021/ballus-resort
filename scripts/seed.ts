@@ -3,8 +3,11 @@ config({ path: ".env.local" });
 
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
-import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
 import * as schema from "../lib/schema";
+
+const CONTACT_EMAIL = "ballusresort@gmail.com";
+const LEGACY_ADMIN_EMAIL = "admin@ballusresort.com";
 
 async function seed() {
   const sql = neon(process.env.DATABASE_URL!);
@@ -13,9 +16,14 @@ async function seed() {
   console.log("🌱 Seeding database...\n");
 
   // ─── Admin User ─────────────────────────────────
-  const adminEmail = process.env.ADMIN_EMAIL || "admin@ballusresort.com";
-  const passwordHash =
-    process.env.ADMIN_PASSWORD_HASH || bcrypt.hashSync("admin123", 12);
+  const adminEmail = process.env.ADMIN_EMAIL || CONTACT_EMAIL;
+  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
+
+  if (!passwordHash) {
+    throw new Error(
+      "ADMIN_PASSWORD_HASH is required. Generate it with: pnpm hash-password '<admin-password>'"
+    );
+  }
 
   await db
     .insert(schema.users)
@@ -27,10 +35,25 @@ async function seed() {
         role: "admin",
       },
     });
+
+  if (adminEmail !== LEGACY_ADMIN_EMAIL) {
+    await db
+      .delete(schema.users)
+      .where(eq(schema.users.email, LEGACY_ADMIN_EMAIL));
+  }
   console.log("✓ Admin user created");
 
   // ─── Site Settings ──────────────────────────────
-  await db.insert(schema.siteSettings).values({}).onConflictDoNothing();
+  await db
+    .insert(schema.siteSettings)
+    .values({ id: 1, email: CONTACT_EMAIL })
+    .onConflictDoUpdate({
+      target: schema.siteSettings.id,
+      set: {
+        email: CONTACT_EMAIL,
+        updatedAt: new Date(),
+      },
+    });
   console.log("✓ Site settings initialized");
 
   // ─── Pages ──────────────────────────────────────

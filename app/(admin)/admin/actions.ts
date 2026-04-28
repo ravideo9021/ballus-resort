@@ -2,7 +2,7 @@
 
 import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import {
@@ -42,15 +42,6 @@ function int(formData: FormData, key: string, fallback = 0): number {
 function bool(formData: FormData, key: string): boolean {
   return formData.get(key) === "on" || formData.get(key) === "true";
 }
-function json<T>(formData: FormData, key: string): T | null {
-  const v = String(formData.get(key) ?? "").trim();
-  if (!v) return null;
-  try {
-    return JSON.parse(v) as T;
-  } catch {
-    return null;
-  }
-}
 function list(formData: FormData, key: string): string[] {
   const v = String(formData.get(key) ?? "").trim();
   if (!v) return [];
@@ -75,7 +66,7 @@ export async function saveSiteSettings(formData: FormData) {
     updatedAt: new Date(),
   };
 
-  const [existing] = await db.select().from(siteSettings).limit(1);
+  const [existing] = await db.select().from(siteSettings).orderBy(asc(siteSettings.id)).limit(1);
   if (existing) {
     await db.update(siteSettings).set(data).where(eq(siteSettings.id, existing.id));
   } else {

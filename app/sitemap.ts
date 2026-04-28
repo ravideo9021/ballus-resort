@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { posts, suites } from "@/lib/schema";
 
-const BASE = process.env.NEXTAUTH_URL || "https://ballusresort.com";
+const BASE = process.env.NEXTAUTH_URL || "https://ballus-resort.vercel.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPaths = [
