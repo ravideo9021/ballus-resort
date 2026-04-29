@@ -5,6 +5,7 @@ import { ManagedImage } from "@/components/marketing/managed-image";
 import {
   getGalleryImagePool,
   getPublicExperiences,
+  isManagedImage,
   pickImagesByCategory,
   resolveManagedImage,
 } from "@/lib/public-content";
@@ -64,14 +65,12 @@ export default async function ExperiencesPage() {
         ])
       .slice(0, 6)
       .map(async (experience, index) => {
-        const managed = resolveManagedImage(experience.managedImageUrl, galleryPool, [
-          "experiences", "events", "adventure",
-        ]);
+        const directImg = isManagedImage(experience.managedImageUrl) ? experience.managedImageUrl : null;
         const slotKey = valleySlots[experience.name];
         const slotImg = slotKey ? (await resolveSlotImage(slotKey)).url : null;
         return {
           ...experience,
-          imageUrl: managed ?? slotImg ?? fallbackImages[index]?.url ?? null,
+          imageUrl: directImg ?? slotImg ?? fallbackImages[index]?.url ?? null,
         };
       })
   );
