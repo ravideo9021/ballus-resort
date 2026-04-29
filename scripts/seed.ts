@@ -639,6 +639,12 @@ async function seed() {
     { slotKey: "faq.hero", label: "FAQ page — Hero", description: "Hero image for /faq." },
     { slotKey: "contact.hero", label: "Contact page — Hero", description: "Hero image for /contact." },
     { slotKey: "og.default", label: "Default social share image (Open Graph)", description: "1200×630 image used when a page shares to social without a specific image." },
+    { slotKey: "valley.solang", label: "Solang Valley", description: "Image for Solang Valley in the Beyond the Resort section." },
+    { slotKey: "valley.old-manali", label: "Old Manali", description: "Image for Old Manali in the Beyond the Resort section." },
+    { slotKey: "valley.hadimba", label: "Hadimba Temple", description: "Image for Hadimba Temple in the Beyond the Resort section." },
+    { slotKey: "valley.mall-road", label: "Mall Road", description: "Image for Mall Road in the Beyond the Resort section." },
+    { slotKey: "valley.rohtang", label: "Rohtang Pass", description: "Image for Rohtang Pass in the Beyond the Resort section." },
+    { slotKey: "valley.naggar", label: "Naggar Castle", description: "Image for Naggar Castle in the Beyond the Resort section." },
   ];
   for (const slot of imageSlots) {
     await db

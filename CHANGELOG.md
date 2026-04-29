@@ -1,5 +1,24 @@
 # Changelog
 
+## v2.2 — Custom domain + valley images + cleanup
+
+### Changed
+
+- **Custom domain:** All URLs now default to `https://ballusresort.com` (sitemap, robots.txt, Open Graph, JSON-LD).
+- **Sitemap** generates correct `ballusresort.com` URLs for Google Search Console.
+
+### Added
+
+- **Beyond the Resort image slots** — 6 new site image slots (`valley.solang`, `valley.old-manali`, `valley.hadimba`, `valley.mall-road`, `valley.rohtang`, `valley.naggar`) editable from Admin → Site Images.
+- Admin images page auto-creates missing slots on load — no manual seed required.
+
+### Removed
+
+- `V2_1_NOTES.md` — diagnostic notes, not needed in repo.
+- `proxy.ts` — unused file (middleware runs from app directory).
+- Starter SVGs (`file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`) — unused Next.js boilerplate.
+
+
 ## v2.1 — Admin fixes + Image Slot System
 
 ### Fixed

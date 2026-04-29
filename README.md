@@ -113,7 +113,7 @@ cp .env.example .env.local
 |---|---|
 | `DATABASE_URL` | Neon Postgres connection string (required) |
 | `NEXTAUTH_SECRET` | Random 32+ char string — `openssl rand -base64 32` |
-| `NEXTAUTH_URL` | Your site URL (`https://ballus-resort.vercel.app` in production) |
+| `NEXTAUTH_URL` | Your site URL (`https://ballusresort.com` in production) |
 | `ADMIN_EMAIL` | Admin login email (`ballusresort@gmail.com`) |
 | `ADMIN_PASSWORD_HASH` | Bcrypt hash of admin password — generate with `pnpm hash-password` |
 | `UPLOADTHING_TOKEN` | From the UploadThing dashboard |
@@ -198,7 +198,7 @@ Sign in to `/admin/images` to upload, replace, or clear any slot image and edit 
 4. **Push this repo** to GitHub.
 5. **Import the repo on Vercel** ([vercel.com/new](https://vercel.com/new)).
 6. Under **Environment Variables**, paste every key from `.env.example` (values from steps 1–3 + a random `NEXTAUTH_SECRET` and your admin credentials).
-7. Set `NEXTAUTH_URL` to your Vercel production URL (`https://ballus-resort.vercel.app`).
+7. Set `NEXTAUTH_URL` to your Vercel production URL (`https://ballusresort.com`).
 8. **Deploy.** First deploy will schema-migrate via `pnpm db:push` if you add it as a post-install step (or run once manually: `pnpm db:push` with production `DATABASE_URL`).
 9. **Seed production:** `DATABASE_URL=<prod-url> pnpm db:seed` (once).
 10. **Add your custom domain** in Vercel → Project → Domains. Update `NEXTAUTH_URL` to the custom domain.
@@ -220,9 +220,9 @@ The site is structured with `LodgingBusiness` JSON-LD and a proper sitemap. For 
 
 ## Google Search Console
 
-1. Register the site at [search.google.com/search-console](https://search.google.com/search-console).
+1. Register `ballusresort.com` at [search.google.com/search-console](https://search.google.com/search-console).
 2. Verify using the **HTML tag** method — paste the token into `GOOGLE_SITE_VERIFICATION` env var and redeploy.
-3. Submit `https://ballus-resort.vercel.app/sitemap.xml`.
+3. Submit `https://ballusresort.com/sitemap.xml`.
 4. Watch for crawl errors and fix any.
 
 ---

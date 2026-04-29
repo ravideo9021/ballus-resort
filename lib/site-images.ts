@@ -26,7 +26,13 @@ export type SiteSlotKey =
   | "journal.hero"
   | "faq.hero"
   | "contact.hero"
-  | "og.default";
+  | "og.default"
+  | "valley.solang"
+  | "valley.old-manali"
+  | "valley.hadimba"
+  | "valley.mall-road"
+  | "valley.rohtang"
+  | "valley.naggar";
 
 const FALLBACK_DIR = path.join(process.cwd(), "public", "images", "slots");
 const FALLBACK_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".svg"];

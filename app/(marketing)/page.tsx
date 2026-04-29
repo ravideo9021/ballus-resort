@@ -15,7 +15,7 @@ import {
   pickImagesByCategory,
   resolveManagedImage,
 } from "@/lib/public-content";
-import { resolveSlotOr } from "@/lib/site-images";
+import { resolveSlotOr, resolveSlotImage } from "@/lib/site-images";
 
 export default async function HomePage() {
   const [settings, galleryPool, suites, posts, experiences] = await Promise.all([
@@ -183,14 +183,19 @@ export default async function HomePage() {
             "adventure",
           ]) ?? experienceFallbackImages[index]?.url ?? null,
       }))
-    : [
-        { name: "Solang Valley", dist: "14 km · 30 min", img: experienceFallbackImages[0]?.url ?? null },
-        { name: "Old Manali", dist: "8 km · 20 min", img: experienceFallbackImages[1]?.url ?? null },
-        { name: "Hadimba Temple", dist: "10 km · 25 min", img: experienceFallbackImages[2]?.url ?? null },
-        { name: "Mall Road", dist: "9 km · 20 min", img: experienceFallbackImages[3]?.url ?? null },
-        { name: "Rohtang Pass", dist: "51 km · 2.5 hrs", img: experienceFallbackImages[4]?.url ?? null },
-        { name: "Naggar Castle", dist: "26 km · 45 min", img: experienceFallbackImages[5]?.url ?? null },
-      ]).slice(0, 6);
+    : await Promise.all([
+        { name: "Solang Valley", dist: "14 km · 30 min", slotKey: "valley.solang" },
+        { name: "Old Manali", dist: "8 km · 20 min", slotKey: "valley.old-manali" },
+        { name: "Hadimba Temple", dist: "10 km · 25 min", slotKey: "valley.hadimba" },
+        { name: "Mall Road", dist: "9 km · 20 min", slotKey: "valley.mall-road" },
+        { name: "Rohtang Pass", dist: "51 km · 2.5 hrs", slotKey: "valley.rohtang" },
+        { name: "Naggar Castle", dist: "26 km · 45 min", slotKey: "valley.naggar" },
+      ].map(async (place, index) => ({
+        name: place.name,
+        dist: place.dist,
+        img: (await resolveSlotImage(place.slotKey)).url ?? experienceFallbackImages[index]?.url ?? null,
+      }))
+    )).slice(0, 6);
 
   const contactPhone = settings?.phone || "+91 8796017034";
   const contactEmail = settings?.email || "ballusresort@gmail.com";
