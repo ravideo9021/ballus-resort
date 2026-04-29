@@ -12,6 +12,7 @@ import {
   getPublicSuites,
   getPublishedPosts,
   getSiteSettings,
+  isManagedImage,
   pickImagesByCategory,
   resolveManagedImage,
 } from "@/lib/public-content";
@@ -193,15 +194,13 @@ export default async function HomePage() {
           { name: "Naggar Castle", distance: "26 km", driveTime: "45 min", managedImageUrl: null },
         ]
     ).map(async (experience, index) => {
-      const managed = resolveManagedImage(experience.managedImageUrl, galleryPool, [
-        "experiences", "events", "adventure",
-      ]);
+      const directImg = isManagedImage(experience.managedImageUrl) ? experience.managedImageUrl : null;
       const slotKey = valleySlots[experience.name];
       const slotImg = slotKey ? (await resolveSlotImage(slotKey)).url : null;
       return {
         name: experience.name,
         dist: `${experience.distance} · ${experience.driveTime}`,
-        img: managed ?? slotImg ?? experienceFallbackImages[index]?.url ?? null,
+        img: directImg ?? slotImg ?? experienceFallbackImages[index]?.url ?? null,
       };
     })
   );
