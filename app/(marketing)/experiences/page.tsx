@@ -8,7 +8,7 @@ import {
   pickImagesByCategory,
   resolveManagedImage,
 } from "@/lib/public-content";
-import { resolveSlotOr } from "@/lib/site-images";
+import { resolveSlotOr, resolveSlotImage } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "Experiences Near Ballu's",
@@ -30,38 +30,51 @@ export default async function ExperiencesPage() {
     "adventure",
   ]);
 
-  const experiences = (experienceRows.length
-    ? experienceRows
-    : [
-        {
-          name: "Solang Valley",
-          distance: "14 km",
-          driveTime: "30 min",
-          description:
-            "Adventure hub for paragliding, zorbing, and skiing in winter. Stunning meadows surrounded by glacial peaks.",
-          seasonTags: ["Summer", "Winter"],
-          managedImageUrl: null,
-        },
-        {
-          name: "Old Manali",
-          distance: "8 km",
-          driveTime: "20 min",
-          description:
-            "Charming village with cobblestone lanes, cozy cafés, artisan shops, and the historic Manu Temple.",
-          seasonTags: ["Year-round"],
-          managedImageUrl: null,
-        },
-      ])
-    .slice(0, 6)
-    .map((experience, index) => ({
-      ...experience,
-      imageUrl:
-        resolveManagedImage(experience.managedImageUrl, galleryPool, [
-          "experiences",
-          "events",
-          "adventure",
-        ]) ?? fallbackImages[index]?.url ?? null,
-    }));
+  const valleySlots: Record<string, string> = {
+    "Solang Valley": "valley.solang",
+    "Old Manali": "valley.old-manali",
+    "Hadimba Temple": "valley.hadimba",
+    "Mall Road": "valley.mall-road",
+    "Rohtang Pass": "valley.rohtang",
+    "Naggar Castle": "valley.naggar",
+  };
+
+  const experiences = await Promise.all(
+    (experienceRows.length
+      ? experienceRows
+      : [
+          {
+            name: "Solang Valley",
+            distance: "14 km",
+            driveTime: "30 min",
+            description:
+              "Adventure hub for paragliding, zorbing, and skiing in winter. Stunning meadows surrounded by glacial peaks.",
+            seasonTags: ["Summer", "Winter"],
+            managedImageUrl: null,
+          },
+          {
+            name: "Old Manali",
+            distance: "8 km",
+            driveTime: "20 min",
+            description:
+              "Charming village with cobblestone lanes, cozy cafés, artisan shops, and the historic Manu Temple.",
+            seasonTags: ["Year-round"],
+            managedImageUrl: null,
+          },
+        ])
+      .slice(0, 6)
+      .map(async (experience, index) => {
+        const managed = resolveManagedImage(experience.managedImageUrl, galleryPool, [
+          "experiences", "events", "adventure",
+        ]);
+        const slotKey = valleySlots[experience.name];
+        const slotImg = slotKey ? (await resolveSlotImage(slotKey)).url : null;
+        return {
+          ...experience,
+          imageUrl: managed ?? slotImg ?? fallbackImages[index]?.url ?? null,
+        };
+      })
+  );
 
   const heroImage = await resolveSlotOr(
     "experiences.hero",

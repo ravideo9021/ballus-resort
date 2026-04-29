@@ -172,30 +172,39 @@ export default async function HomePage() {
     "adventure",
   ]);
 
-  const experienceCards = (experiences.length
-    ? experiences.slice(0, 6).map((experience, index) => ({
+  const valleySlots: Record<string, string> = {
+    "Solang Valley": "valley.solang",
+    "Old Manali": "valley.old-manali",
+    "Hadimba Temple": "valley.hadimba",
+    "Mall Road": "valley.mall-road",
+    "Rohtang Pass": "valley.rohtang",
+    "Naggar Castle": "valley.naggar",
+  };
+
+  const experienceCards = await Promise.all(
+    (experiences.length
+      ? experiences.slice(0, 6)
+      : [
+          { name: "Solang Valley", distance: "14 km", driveTime: "30 min", managedImageUrl: null },
+          { name: "Old Manali", distance: "8 km", driveTime: "20 min", managedImageUrl: null },
+          { name: "Hadimba Temple", distance: "10 km", driveTime: "25 min", managedImageUrl: null },
+          { name: "Mall Road", distance: "9 km", driveTime: "20 min", managedImageUrl: null },
+          { name: "Rohtang Pass", distance: "51 km", driveTime: "2.5 hrs", managedImageUrl: null },
+          { name: "Naggar Castle", distance: "26 km", driveTime: "45 min", managedImageUrl: null },
+        ]
+    ).map(async (experience, index) => {
+      const managed = resolveManagedImage(experience.managedImageUrl, galleryPool, [
+        "experiences", "events", "adventure",
+      ]);
+      const slotKey = valleySlots[experience.name];
+      const slotImg = slotKey ? (await resolveSlotImage(slotKey)).url : null;
+      return {
         name: experience.name,
         dist: `${experience.distance} · ${experience.driveTime}`,
-        img:
-          resolveManagedImage(experience.managedImageUrl, galleryPool, [
-            "experiences",
-            "events",
-            "adventure",
-          ]) ?? experienceFallbackImages[index]?.url ?? null,
-      }))
-    : await Promise.all([
-        { name: "Solang Valley", dist: "14 km · 30 min", slotKey: "valley.solang" },
-        { name: "Old Manali", dist: "8 km · 20 min", slotKey: "valley.old-manali" },
-        { name: "Hadimba Temple", dist: "10 km · 25 min", slotKey: "valley.hadimba" },
-        { name: "Mall Road", dist: "9 km · 20 min", slotKey: "valley.mall-road" },
-        { name: "Rohtang Pass", dist: "51 km · 2.5 hrs", slotKey: "valley.rohtang" },
-        { name: "Naggar Castle", dist: "26 km · 45 min", slotKey: "valley.naggar" },
-      ].map(async (place, index) => ({
-        name: place.name,
-        dist: place.dist,
-        img: (await resolveSlotImage(place.slotKey)).url ?? experienceFallbackImages[index]?.url ?? null,
-      }))
-    )).slice(0, 6);
+        img: managed ?? slotImg ?? experienceFallbackImages[index]?.url ?? null,
+      };
+    })
+  );
 
   const contactPhone = settings?.phone || "+91 8796017034";
   const contactEmail = settings?.email || "ballusresort@gmail.com";
