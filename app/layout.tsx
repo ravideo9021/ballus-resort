@@ -23,7 +23,7 @@ const inter = Inter({
 export async function generateMetadata(): Promise<Metadata> {
   const og = await resolveSlotImage("og.default");
   const ogUrl = og.url || "/og-default.jpg";
-  const siteUrl = process.env.NEXTAUTH_URL || "https://ballus-resort.vercel.app";
+  const siteUrl = process.env.NEXTAUTH_URL || "https://ballusresort.com";
 
   return {
     metadataBase: new URL(siteUrl),
