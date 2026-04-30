@@ -36,7 +36,10 @@ export default async function GalleryPage() {
         <div className="relative h-full flex flex-col items-center justify-center text-center px-6 pt-20">
           <FadeUp>
             <p className="eyebrow mb-5">Gallery</p>
-            <h1 className="heading-display text-[#F5EFE3] text-5xl md:text-7xl">Moments at Ballu&apos;s</h1>
+            <h1 className="heading-display text-[#F5EFE3] text-5xl md:text-7xl mb-4">Moments at Ballu&apos;s</h1>
+            <p className="heading-serif italic text-[#E5C97A] text-xl md:text-2xl max-w-2xl mx-auto">
+              A glimpse into life at our riverside retreat — the property, the celebrations, and the seasons.
+            </p>
           </FadeUp>
         </div>
       </section>

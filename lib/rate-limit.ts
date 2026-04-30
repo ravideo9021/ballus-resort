@@ -5,6 +5,13 @@ const MAX_REQUESTS = 5;
 
 export function checkRateLimit(ip: string): boolean {
   const now = Date.now();
+
+  if (rateMap.size > 10000) {
+    for (const [key, val] of rateMap) {
+      if (now > val.resetAt) rateMap.delete(key);
+    }
+  }
+
   const entry = rateMap.get(ip);
 
   if (!entry || now > entry.resetAt) {

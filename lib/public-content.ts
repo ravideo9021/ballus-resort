@@ -4,11 +4,13 @@ import {
   experiences,
   faqs,
   galleryImages,
+  offers,
   pages,
   posts,
   siteSettings,
   suiteImages,
   suites,
+  testimonials,
 } from "./schema";
 
 export type PublicImage = {
@@ -203,4 +205,19 @@ export async function getActiveFaqs() {
     .from(faqs)
     .where(eq(faqs.active, true))
     .orderBy(asc(faqs.order), asc(faqs.id));
+}
+
+export async function getActiveOffers() {
+  return db
+    .select()
+    .from(offers)
+    .where(eq(offers.active, true))
+    .orderBy(desc(offers.createdAt));
+}
+
+export async function getPublicTestimonials() {
+  return db
+    .select()
+    .from(testimonials)
+    .orderBy(desc(testimonials.featured), desc(testimonials.createdAt));
 }

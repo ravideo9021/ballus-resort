@@ -16,6 +16,8 @@ const PAGE_KEYS = [
   { key: "weddings", label: "Weddings", path: "/weddings" },
   { key: "conferences", label: "Conferences", path: "/conferences" },
   { key: "banquets", label: "Banquets", path: "/banquets" },
+  { key: "privacy-policy", label: "Privacy Policy", path: "/privacy-policy" },
+  { key: "terms", label: "Terms of Service", path: "/terms" },
 ];
 
 export default async function PagesIndex() {

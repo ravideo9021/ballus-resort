@@ -23,7 +23,14 @@ function InstagramIcon({ className }: { className?: string }) {
   );
 }
 
-export function Footer() {
+type FooterSettings = {
+  phone?: string | null;
+  email?: string | null;
+  address?: string | null;
+  instagramUrl?: string | null;
+} | null;
+
+export function Footer({ settings }: { settings?: FooterSettings }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -74,6 +81,8 @@ export function Footer() {
               <li><Link href="/experiences" className="text-[#F5EFE3]/70 hover:text-[#C9A24B] transition-colors">Experiences</Link></li>
               <li><Link href="/journal" className="text-[#F5EFE3]/70 hover:text-[#C9A24B] transition-colors">Journal</Link></li>
               <li><Link href="/story" className="text-[#F5EFE3]/70 hover:text-[#C9A24B] transition-colors">Our Story</Link></li>
+              <li><Link href="/offers" className="text-[#F5EFE3]/70 hover:text-[#C9A24B] transition-colors">Offers</Link></li>
+              <li><Link href="/testimonials" className="text-[#F5EFE3]/70 hover:text-[#C9A24B] transition-colors">Testimonials</Link></li>
               <li><Link href="/faq" className="text-[#F5EFE3]/70 hover:text-[#C9A24B] transition-colors">FAQ</Link></li>
             </ul>
           </div>
@@ -84,22 +93,22 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-[#F5EFE3]/70">
               <li className="flex gap-3">
                 <MapPin className="w-4 h-4 mt-0.5 text-[#C9A24B] flex-shrink-0" />
-                <span>14 Mile Road, Beas Riverside,<br />Manali — 175131</span>
+                <span>{(settings?.address || "14 Mile Road, Beas Riverside, Manali — 175131").split(",").map((part, i, arr) => <span key={i}>{part.trim()}{i < arr.length - 1 ? "," : ""}{i === Math.floor(arr.length / 2) - 1 ? <br /> : " "}</span>)}</span>
               </li>
               <li>
-                <a href="tel:+918796017034" className="flex gap-3 hover:text-[#C9A24B] transition-colors">
+                <a href={`tel:${settings?.phone || "+91 8796017034"}`} className="flex gap-3 hover:text-[#C9A24B] transition-colors">
                   <Phone className="w-4 h-4 mt-0.5 text-[#C9A24B] flex-shrink-0" />
-                  <span>+91 8796017034</span>
+                  <span>{settings?.phone || "+91 8796017034"}</span>
                 </a>
               </li>
               <li>
-                <a href="mailto:ballusresort@gmail.com" className="flex gap-3 hover:text-[#C9A24B] transition-colors">
+                <a href={`mailto:${settings?.email || "ballusresort@gmail.com"}`} className="flex gap-3 hover:text-[#C9A24B] transition-colors">
                   <Mail className="w-4 h-4 mt-0.5 text-[#C9A24B] flex-shrink-0" />
-                  <span>ballusresort@gmail.com</span>
+                  <span>{settings?.email || "ballusresort@gmail.com"}</span>
                 </a>
               </li>
               <li>
-                <a href="https://instagram.com/ballus_resort" target="_blank" rel="noreferrer" className="flex gap-3 hover:text-[#C9A24B] transition-colors">
+                <a href={settings?.instagramUrl || "https://instagram.com/ballus_resort"} target="_blank" rel="noreferrer" className="flex gap-3 hover:text-[#C9A24B] transition-colors">
                   <InstagramIcon className="w-4 h-4 mt-0.5 text-[#C9A24B] flex-shrink-0" />
                   <span>@ballus_resort</span>
                 </a>
@@ -139,7 +148,11 @@ export function Footer() {
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#F5EFE3]/40">
           <p>© {new Date().getFullYear()} Ballu&apos;s Resort &amp; Café. All rights reserved.</p>
-          <p>Crafted with care in the Beas Valley.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy-policy" className="hover:text-[#C9A24B] transition-colors">Privacy Policy</Link>
+            <span>·</span>
+            <Link href="/terms" className="hover:text-[#C9A24B] transition-colors">Terms</Link>
+          </div>
         </div>
       </div>
     </footer>
