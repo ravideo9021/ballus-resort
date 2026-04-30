@@ -1,5 +1,36 @@
 # Changelog
 
+## v3.0 — Quality upgrade
+
+### Fixed
+
+- **`--turbopack` deprecation warning** — removed flag from dev script (Turbopack is default in Next.js 16).
+- **`publishedAt` overwrite bug** — editing a published post no longer resets its publish date.
+- **Rate limiter memory leak** — expired entries are now cleaned up when map exceeds 10,000 entries.
+
+### Added
+
+- **Public Offers page** (`/offers`) — displays active offers with images, pricing, and validity dates. Shows empty state when no offers exist.
+- **Public Testimonials page** (`/testimonials`) — displays guest reviews with star ratings, author info, and featured sorting.
+- **Privacy Policy page** (`/privacy-policy`) — CMS-editable legal page with fallback message.
+- **Terms of Service page** (`/terms`) — CMS-editable legal page with fallback message.
+- **PWA icons** — 192x192 and 512x512 PNG icons in manifest for installability.
+- **Keyboard accessibility** — mobile menu closes on Escape, `role="dialog"` + `aria-modal` on overlay.
+- **Focus-visible rings** — gold focus rings on all navbar links (desktop and mobile).
+- **Gallery filter `aria-pressed`** — screen readers announce active filter state.
+- **Dynamic footer contact info** — phone, email, address, and Instagram pulled from CMS settings with hardcoded fallbacks.
+- **Footer legal links** — Privacy Policy and Terms links in copyright bar.
+- **Footer nav links** — Offers and Testimonials added to Explore column.
+- **Story page CMS support** — `/story` renders admin-edited content when available, keeps hardcoded fallback.
+- **Gallery description** — subtitle text below gallery hero heading.
+- **Error handling** — all 24 admin server actions wrapped in try-catch with contextual error messages.
+- **Sitemap entries** — `/offers` and `/testimonials` added.
+
+### Changed
+
+- **Smooth scroll** — `data-scroll-behavior="smooth"` on `<html>` for Next.js 16 SPA navigation compatibility.
+
+
 ## v2.2 — Custom domain + valley images + cleanup
 
 ### Changed
