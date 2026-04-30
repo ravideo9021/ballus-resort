@@ -59,7 +59,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[#F5EFE3]/80 hover:text-[#C9A24B] text-sm uppercase tracking-[0.15em] font-medium transition-colors"
+                className="text-[#F5EFE3]/80 hover:text-[#C9A24B] text-sm uppercase tracking-[0.15em] font-medium transition-colors focus-visible:ring-2 focus-visible:ring-[#C9A24B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1B22] rounded-sm"
               >
                 {link.label}
               </Link>
@@ -91,6 +91,9 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
+            role="dialog"
+            aria-modal="true"
+            onKeyDown={(e) => { if (e.key === "Escape") setMobileOpen(false); }}
             className="fixed inset-0 z-[60] bg-[#0B1B22]"
           >
             <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
@@ -127,7 +130,7 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="heading-serif text-[#F5EFE3] hover:text-[#C9A24B] text-3xl transition-colors"
+                    className="heading-serif text-[#F5EFE3] hover:text-[#C9A24B] text-3xl transition-colors focus-visible:ring-2 focus-visible:ring-[#C9A24B] rounded-sm"
                   >
                     {link.label}
                   </Link>

@@ -66,11 +66,15 @@ export async function saveSiteSettings(formData: FormData) {
     updatedAt: new Date(),
   };
 
-  const [existing] = await db.select().from(siteSettings).orderBy(asc(siteSettings.id)).limit(1);
-  if (existing) {
-    await db.update(siteSettings).set(data).where(eq(siteSettings.id, existing.id));
-  } else {
-    await db.insert(siteSettings).values(data);
+  try {
+    const [existing] = await db.select().from(siteSettings).orderBy(asc(siteSettings.id)).limit(1);
+    if (existing) {
+      await db.update(siteSettings).set(data).where(eq(siteSettings.id, existing.id));
+    } else {
+      await db.insert(siteSettings).values(data);
+    }
+  } catch (e) {
+    throw new Error("Failed to save site settings");
   }
   revalidatePath("/", "layout");
   revalidatePath("/admin/settings");
@@ -87,10 +91,14 @@ export async function savePage(id: number | null, key: string, formData: FormDat
     seoDescription: optStr(formData, "seoDescription"),
     updatedAt: new Date(),
   };
-  if (id) {
-    await db.update(pages).set(data).where(eq(pages.id, id));
-  } else {
-    await db.insert(pages).values(data);
+  try {
+    if (id) {
+      await db.update(pages).set(data).where(eq(pages.id, id));
+    } else {
+      await db.insert(pages).values(data);
+    }
+  } catch (e) {
+    throw new Error("Failed to save page");
   }
   revalidatePath("/", "layout");
   revalidatePath(`/admin/pages/${key}`);
@@ -112,20 +120,24 @@ export async function saveSuite(id: number | null, formData: FormData) {
   const images = list(formData, "images");
 
   let suiteId = id;
-  if (id) {
-    await db.update(suites).set(data).where(eq(suites.id, id));
-  } else {
-    const [created] = await db.insert(suites).values(data).returning({ id: suites.id });
-    suiteId = created.id;
-  }
-
-  if (suiteId) {
-    await db.delete(suiteImages).where(eq(suiteImages.suiteId, suiteId));
-    if (images.length) {
-      await db.insert(suiteImages).values(
-        images.map((url, i) => ({ suiteId: suiteId!, url, alt: title, order: i }))
-      );
+  try {
+    if (id) {
+      await db.update(suites).set(data).where(eq(suites.id, id));
+    } else {
+      const [created] = await db.insert(suites).values(data).returning({ id: suites.id });
+      suiteId = created.id;
     }
+
+    if (suiteId) {
+      await db.delete(suiteImages).where(eq(suiteImages.suiteId, suiteId));
+      if (images.length) {
+        await db.insert(suiteImages).values(
+          images.map((url, i) => ({ suiteId: suiteId!, url, alt: title, order: i }))
+        );
+      }
+    }
+  } catch (e) {
+    throw new Error("Failed to save suite");
   }
 
   revalidatePath("/", "layout");
@@ -135,7 +147,11 @@ export async function saveSuite(id: number | null, formData: FormData) {
 
 export async function deleteSuite(id: number) {
   await requireAdmin();
-  await db.delete(suites).where(eq(suites.id, id));
+  try {
+    await db.delete(suites).where(eq(suites.id, id));
+  } catch (e) {
+    throw new Error("Failed to delete suite");
+  }
   revalidatePath("/", "layout");
   revalidatePath("/admin/suites");
   redirect("/admin/suites");
@@ -145,14 +161,18 @@ export async function deleteSuite(id: number) {
 export async function addGalleryImages(urls: string[], category: string) {
   await requireAdmin();
   if (!urls.length) return;
-  await db.insert(galleryImages).values(
+  try {
+    await db.insert(galleryImages).values(
     urls.map((url, i) => ({
       url,
       alt: "",
       category: category || "Property",
       order: i,
     }))
-  );
+    );
+  } catch (e) {
+    throw new Error("Failed to add gallery images");
+  }
   revalidatePath("/");
   revalidatePath("/gallery");
   revalidatePath("/admin/gallery");
@@ -160,15 +180,19 @@ export async function addGalleryImages(urls: string[], category: string) {
 
 export async function updateGalleryImage(id: number, formData: FormData) {
   await requireAdmin();
-  await db
-    .update(galleryImages)
-    .set({
-      alt: str(formData, "alt"),
-      caption: optStr(formData, "caption"),
-      category: str(formData, "category") || "Property",
-      featured: bool(formData, "featured"),
-    })
-    .where(eq(galleryImages.id, id));
+  try {
+    await db
+      .update(galleryImages)
+      .set({
+        alt: str(formData, "alt"),
+        caption: optStr(formData, "caption"),
+        category: str(formData, "category") || "Property",
+        featured: bool(formData, "featured"),
+      })
+      .where(eq(galleryImages.id, id));
+  } catch (e) {
+    throw new Error("Failed to update gallery image");
+  }
   revalidatePath("/");
   revalidatePath("/gallery");
   revalidatePath("/admin/gallery");
@@ -176,7 +200,11 @@ export async function updateGalleryImage(id: number, formData: FormData) {
 
 export async function deleteGalleryImage(id: number) {
   await requireAdmin();
-  await db.delete(galleryImages).where(eq(galleryImages.id, id));
+  try {
+    await db.delete(galleryImages).where(eq(galleryImages.id, id));
+  } catch (e) {
+    throw new Error("Failed to delete gallery image");
+  }
   revalidatePath("/");
   revalidatePath("/gallery");
   revalidatePath("/admin/gallery");
@@ -194,10 +222,14 @@ export async function saveOffer(id: number | null, formData: FormData) {
     validTo: parseDateInput(formData.get("validTo")),
     active: bool(formData, "active"),
   };
-  if (id) {
-    await db.update(offers).set(data).where(eq(offers.id, id));
-  } else {
-    await db.insert(offers).values(data);
+  try {
+    if (id) {
+      await db.update(offers).set(data).where(eq(offers.id, id));
+    } else {
+      await db.insert(offers).values(data);
+    }
+  } catch (e) {
+    throw new Error("Failed to save offer");
   }
   revalidatePath("/", "layout");
   revalidatePath("/admin/offers");
@@ -206,7 +238,11 @@ export async function saveOffer(id: number | null, formData: FormData) {
 
 export async function deleteOffer(id: number) {
   await requireAdmin();
-  await db.delete(offers).where(eq(offers.id, id));
+  try {
+    await db.delete(offers).where(eq(offers.id, id));
+  } catch (e) {
+    throw new Error("Failed to delete offer");
+  }
   revalidatePath("/admin/offers");
   redirect("/admin/offers");
 }
@@ -230,10 +266,18 @@ export async function savePost(id: number | null, formData: FormData) {
     seoDescription: optStr(formData, "seoDescription"),
     updatedAt: new Date(),
   };
-  if (id) {
-    await db.update(posts).set(data).where(eq(posts.id, id));
-  } else {
-    await db.insert(posts).values(data);
+  try {
+    if (id) {
+      const existing = await db.select({ publishedAt: posts.publishedAt, published: posts.published }).from(posts).where(eq(posts.id, id)).limit(1);
+      if (existing[0]?.published && published) {
+        data.publishedAt = existing[0].publishedAt;
+      }
+      await db.update(posts).set(data).where(eq(posts.id, id));
+    } else {
+      await db.insert(posts).values(data);
+    }
+  } catch (e) {
+    throw new Error("Failed to save post");
   }
   revalidatePath("/journal");
   revalidatePath(`/journal/${slug}`);
@@ -243,7 +287,11 @@ export async function savePost(id: number | null, formData: FormData) {
 
 export async function deletePost(id: number) {
   await requireAdmin();
-  await db.delete(posts).where(eq(posts.id, id));
+  try {
+    await db.delete(posts).where(eq(posts.id, id));
+  } catch (e) {
+    throw new Error("Failed to delete post");
+  }
   revalidatePath("/journal");
   revalidatePath("/admin/posts");
   redirect("/admin/posts");
@@ -259,10 +307,14 @@ export async function saveFaq(id: number | null, formData: FormData) {
     order: int(formData, "order"),
     active: bool(formData, "active"),
   };
-  if (id) {
-    await db.update(faqs).set(data).where(eq(faqs.id, id));
-  } else {
-    await db.insert(faqs).values(data);
+  try {
+    if (id) {
+      await db.update(faqs).set(data).where(eq(faqs.id, id));
+    } else {
+      await db.insert(faqs).values(data);
+    }
+  } catch (e) {
+    throw new Error("Failed to save FAQ");
   }
   revalidatePath("/faq");
   revalidatePath("/admin/faqs");
@@ -271,7 +323,11 @@ export async function saveFaq(id: number | null, formData: FormData) {
 
 export async function deleteFaq(id: number) {
   await requireAdmin();
-  await db.delete(faqs).where(eq(faqs.id, id));
+  try {
+    await db.delete(faqs).where(eq(faqs.id, id));
+  } catch (e) {
+    throw new Error("Failed to delete FAQ");
+  }
   revalidatePath("/faq");
   revalidatePath("/admin/faqs");
   redirect("/admin/faqs");
@@ -287,10 +343,14 @@ export async function saveTestimonial(id: number | null, formData: FormData) {
     rating: int(formData, "rating", 5),
     featured: bool(formData, "featured"),
   };
-  if (id) {
-    await db.update(testimonials).set(data).where(eq(testimonials.id, id));
-  } else {
-    await db.insert(testimonials).values(data);
+  try {
+    if (id) {
+      await db.update(testimonials).set(data).where(eq(testimonials.id, id));
+    } else {
+      await db.insert(testimonials).values(data);
+    }
+  } catch (e) {
+    throw new Error("Failed to save testimonial");
   }
   revalidatePath("/", "layout");
   revalidatePath("/admin/testimonials");
@@ -299,7 +359,11 @@ export async function saveTestimonial(id: number | null, formData: FormData) {
 
 export async function deleteTestimonial(id: number) {
   await requireAdmin();
-  await db.delete(testimonials).where(eq(testimonials.id, id));
+  try {
+    await db.delete(testimonials).where(eq(testimonials.id, id));
+  } catch (e) {
+    throw new Error("Failed to delete testimonial");
+  }
   revalidatePath("/admin/testimonials");
   redirect("/admin/testimonials");
 }
@@ -316,10 +380,14 @@ export async function saveExperience(id: number | null, formData: FormData) {
     seasonTags: list(formData, "seasonTags"),
     order: int(formData, "order"),
   };
-  if (id) {
-    await db.update(experiences).set(data).where(eq(experiences.id, id));
-  } else {
-    await db.insert(experiences).values(data);
+  try {
+    if (id) {
+      await db.update(experiences).set(data).where(eq(experiences.id, id));
+    } else {
+      await db.insert(experiences).values(data);
+    }
+  } catch (e) {
+    throw new Error("Failed to save experience");
   }
   revalidatePath("/experiences");
   revalidatePath("/admin/experiences");
@@ -328,7 +396,11 @@ export async function saveExperience(id: number | null, formData: FormData) {
 
 export async function deleteExperience(id: number) {
   await requireAdmin();
-  await db.delete(experiences).where(eq(experiences.id, id));
+  try {
+    await db.delete(experiences).where(eq(experiences.id, id));
+  } catch (e) {
+    throw new Error("Failed to delete experience");
+  }
   revalidatePath("/experiences");
   revalidatePath("/admin/experiences");
   redirect("/admin/experiences");
@@ -337,14 +409,22 @@ export async function deleteExperience(id: number) {
 // ─── Inquiries ──────────────────────────────────────
 export async function updateInquiryStatus(id: number, status: string) {
   await requireAdmin();
-  await db.update(inquiries).set({ status }).where(eq(inquiries.id, id));
+  try {
+    await db.update(inquiries).set({ status }).where(eq(inquiries.id, id));
+  } catch (e) {
+    throw new Error("Failed to update inquiry status");
+  }
   revalidatePath("/admin/inquiries");
   revalidatePath(`/admin/inquiries/${id}`);
 }
 
 export async function deleteInquiry(id: number) {
   await requireAdmin();
-  await db.delete(inquiries).where(eq(inquiries.id, id));
+  try {
+    await db.delete(inquiries).where(eq(inquiries.id, id));
+  } catch (e) {
+    throw new Error("Failed to delete inquiry");
+  }
   revalidatePath("/admin/inquiries");
   redirect("/admin/inquiries");
 }
@@ -352,7 +432,11 @@ export async function deleteInquiry(id: number) {
 // ─── Newsletter ─────────────────────────────────────
 export async function deleteSubscriber(id: number) {
   await requireAdmin();
-  await db.delete(newsletterSignups).where(eq(newsletterSignups.id, id));
+  try {
+    await db.delete(newsletterSignups).where(eq(newsletterSignups.id, id));
+  } catch (e) {
+    throw new Error("Failed to delete subscriber");
+  }
   revalidatePath("/admin/newsletter");
 }
 
@@ -361,10 +445,14 @@ export async function saveSiteImage(slotKey: string, url: string) {
   await requireAdmin();
   const clean = url.trim();
   if (!clean) throw new Error("Missing image URL");
-  await db
-    .update(siteImages)
-    .set({ url: clean, updatedAt: new Date() })
-    .where(eq(siteImages.slotKey, slotKey));
+  try {
+    await db
+      .update(siteImages)
+      .set({ url: clean, updatedAt: new Date() })
+      .where(eq(siteImages.slotKey, slotKey));
+  } catch (e) {
+    throw new Error("Failed to save site image");
+  }
   updateTag(SLOT_IMAGE_TAG);
   revalidatePath("/", "layout");
   revalidatePath("/admin/images");
@@ -372,10 +460,14 @@ export async function saveSiteImage(slotKey: string, url: string) {
 
 export async function clearSiteImage(slotKey: string) {
   await requireAdmin();
-  await db
-    .update(siteImages)
-    .set({ url: null, updatedAt: new Date() })
-    .where(eq(siteImages.slotKey, slotKey));
+  try {
+    await db
+      .update(siteImages)
+      .set({ url: null, updatedAt: new Date() })
+      .where(eq(siteImages.slotKey, slotKey));
+  } catch (e) {
+    throw new Error("Failed to clear site image");
+  }
   updateTag(SLOT_IMAGE_TAG);
   revalidatePath("/", "layout");
   revalidatePath("/admin/images");
@@ -383,10 +475,14 @@ export async function clearSiteImage(slotKey: string) {
 
 export async function saveSiteImageAlt(slotKey: string, alt: string) {
   await requireAdmin();
-  await db
-    .update(siteImages)
-    .set({ alt: alt.trim(), updatedAt: new Date() })
-    .where(eq(siteImages.slotKey, slotKey));
+  try {
+    await db
+      .update(siteImages)
+      .set({ alt: alt.trim(), updatedAt: new Date() })
+      .where(eq(siteImages.slotKey, slotKey));
+  } catch (e) {
+    throw new Error("Failed to save image alt text");
+  }
   updateTag(SLOT_IMAGE_TAG);
   revalidatePath("/", "layout");
   revalidatePath("/admin/images");

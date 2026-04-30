@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { FadeUp } from "@/components/motion/fade-up";
 import { ManagedImage } from "@/components/marketing/managed-image";
-import { getGalleryImagePool, resolveManagedImage } from "@/lib/public-content";
+import { getGalleryImagePool, getPageRecord, resolveManagedImage } from "@/lib/public-content";
+import { extractTextContent } from "@/components/marketing/rich-content";
 import { resolveSlotOr } from "@/lib/site-images";
 
 export const metadata: Metadata = {
@@ -13,7 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default async function StoryPage() {
-  const galleryPool = await getGalleryImagePool();
+  const [galleryPool, page] = await Promise.all([
+    getGalleryImagePool(),
+    getPageRecord("story"),
+  ]);
+  const cmsBody = page?.body ? extractTextContent(page.body) : null;
   const heroImage = await resolveSlotOr(
     "story.hero",
     resolveManagedImage(null, galleryPool, ["story", "property", "resort"])
@@ -44,39 +49,46 @@ export default async function StoryPage() {
       <article className="bg-[#F5EFE3] py-24 md:py-32">
         <div className="max-w-3xl mx-auto px-6">
           <FadeUp>
-            <div className="prose prose-lg prose-resort max-w-none">
-              <p className="text-xl text-[#0B1B22]/80 leading-relaxed">
-                Nestled along the pristine banks of the Beas River, at the 14th milestone on
-                the road to Manali, Ballu&apos;s Resort &amp; Café began as a dream — a quiet place
-                where the rhythm of the river meets the stillness of the Himalayas.
-              </p>
-
-              <blockquote className="my-12 border-l-2 border-[#C9A24B] pl-6">
-                <p className="heading-serif italic text-3xl text-[#C9A24B]">
-                  A rare river &amp; mountain combination — the finest address in the Beas Valley.
+            {cmsBody ? (
+              <div
+                className="prose prose-lg prose-resort max-w-none"
+                dangerouslySetInnerHTML={{ __html: cmsBody }}
+              />
+            ) : (
+              <div className="prose prose-lg prose-resort max-w-none">
+                <p className="text-xl text-[#0B1B22]/80 leading-relaxed">
+                  Nestled along the pristine banks of the Beas River, at the 14th milestone on
+                  the road to Manali, Ballu&apos;s Resort &amp; Café began as a dream — a quiet place
+                  where the rhythm of the river meets the stillness of the Himalayas.
                 </p>
-              </blockquote>
 
-              <p className="text-[#0B1B22]/80 leading-relaxed">
-                What started as a family retreat has grown into one of the valley&apos;s most
-                cherished addresses. Every corner of the property has been designed with
-                intention — from the handcrafted wooden café that catches the morning light
-                to the riverside cabins that wake to birdsong and mountain mist.
-              </p>
+                <blockquote className="my-12 border-l-2 border-[#C9A24B] pl-6">
+                  <p className="heading-serif italic text-3xl text-[#C9A24B]">
+                    A rare river &amp; mountain combination — the finest address in the Beas Valley.
+                  </p>
+                </blockquote>
 
-              <p className="text-[#0B1B22]/80 leading-relaxed">
-                We believe that hospitality is personal. It&apos;s in the warmth of a greeting,
-                the care behind a meal, the quiet attention to detail that turns a stay into
-                a memory. At Ballu&apos;s, every guest is family, every visit is a homecoming.
-              </p>
+                <p className="text-[#0B1B22]/80 leading-relaxed">
+                  What started as a family retreat has grown into one of the valley&apos;s most
+                  cherished addresses. Every corner of the property has been designed with
+                  intention — from the handcrafted wooden café that catches the morning light
+                  to the riverside cabins that wake to birdsong and mountain mist.
+                </p>
 
-              <p className="text-[#0B1B22]/80 leading-relaxed">
-                Today, Ballu&apos;s Resort &amp; Café is more than an accommodation — it&apos;s a
-                destination. A place for celebration, reflection, and discovery. Whether
-                you&apos;re here for a quiet weekend, a grand wedding, or simply a cup of mountain
-                coffee, you&apos;ll find something rare: a place that feels truly yours.
-              </p>
-            </div>
+                <p className="text-[#0B1B22]/80 leading-relaxed">
+                  We believe that hospitality is personal. It&apos;s in the warmth of a greeting,
+                  the care behind a meal, the quiet attention to detail that turns a stay into
+                  a memory. At Ballu&apos;s, every guest is family, every visit is a homecoming.
+                </p>
+
+                <p className="text-[#0B1B22]/80 leading-relaxed">
+                  Today, Ballu&apos;s Resort &amp; Café is more than an accommodation — it&apos;s a
+                  destination. A place for celebration, reflection, and discovery. Whether
+                  you&apos;re here for a quiet weekend, a grand wedding, or simply a cup of mountain
+                  coffee, you&apos;ll find something rare: a place that feels truly yours.
+                </p>
+              </div>
+            )}
           </FadeUp>
 
           <FadeUp delay={0.3} className="mt-16 text-center">

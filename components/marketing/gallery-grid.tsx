@@ -43,6 +43,7 @@ export function GalleryGrid({ images, categories }: GalleryGridProps) {
           <button
             key={cat}
             onClick={() => setFilter(cat)}
+            aria-pressed={filter === cat}
             className={cn(
               "px-5 py-2 text-xs uppercase tracking-[0.2em] font-medium transition-all border",
               filter === cat
