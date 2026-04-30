@@ -1,8 +1,10 @@
 # Ballu's Resort & Café
 
-A production-grade marketing website for **Ballu's Resort & Café** — a premium Himalayan resort at 14 Mile Road, Beas Riverside, Manali. Complete scrollytelling public site + admin CMS + inquiry lead capture.
+A production-grade marketing website for **Ballu's Resort & Café** — a premium Himalayan resort at 14 Mile Road, Beas Riverside, Manali. Complete scrollytelling public site (16 pages) + admin CMS + inquiry lead capture.
 
 > Built against world-class resort standards (Aman, Six Senses, Soneva).
+
+**Live at [ballusresort.com](https://ballusresort.com)**
 
 ---
 
@@ -41,6 +43,10 @@ app/
     journal/          # Blog index + [slug]
     faq/
     contact/
+    offers/           # Active offers & packages
+    testimonials/     # Guest testimonials
+    privacy-policy/   # CMS-editable legal page
+    terms/            # CMS-editable legal page
     layout.tsx
   (admin)/admin/      # CMS
     dashboard/
@@ -152,7 +158,7 @@ The site runs at [http://localhost:3000](http://localhost:3000). Admin at [http:
 
 | Command | Action |
 |---|---|
-| `pnpm dev` | Next.js dev server with Turbopack |
+| `pnpm dev` | Next.js dev server (Turbopack is default in Next.js 16) |
 | `pnpm build` | Production build |
 | `pnpm start` | Start production build |
 | `pnpm typecheck` | `tsc --noEmit` |
