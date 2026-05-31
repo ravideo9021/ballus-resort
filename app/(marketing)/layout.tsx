@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/marketing/navbar";
 import { Footer } from "@/components/marketing/footer";
 import { FloatingContact } from "@/components/marketing/floating-contact";
-import { getSiteSettings } from "@/lib/public-content";
+import { getAggregateRating, getSiteSettings } from "@/lib/public-content";
 import { LenisProvider } from "@/components/motion/lenis-provider";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { CursorDot } from "@/components/motion/cursor-dot";
@@ -13,7 +13,11 @@ export default async function MarketingLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await getSiteSettings();
+  const [settings, aggregateRating] = await Promise.all([
+    getSiteSettings(),
+    getAggregateRating(),
+  ]);
+
   return (
     <LenisProvider>
       <a href="#main-content" className="skip-to-content">
@@ -31,7 +35,12 @@ export default async function MarketingLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(lodgingBusinessSchema()),
+          __html: JSON.stringify(
+            lodgingBusinessSchema({
+              aggregateRating: aggregateRating ?? undefined,
+              instagramUrl: settings?.instagramUrl,
+            })
+          ),
         }}
       />
     </LenisProvider>

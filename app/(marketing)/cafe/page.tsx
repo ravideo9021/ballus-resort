@@ -7,11 +7,13 @@ import { ManagedImage } from "@/components/marketing/managed-image";
 import { getGalleryImagePool, resolveManagedImage } from "@/lib/public-content";
 import { resolveSlotOr } from "@/lib/site-images";
 import { restaurantSchema } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Ballu's Café",
   description:
     "Artisan brews, Himalayan cuisine, and panoramic mountain views at Ballu's Café in Manali.",
+  alternates: { canonical: "/cafe" },
 };
 
 const MENU_CATEGORIES = [
@@ -117,6 +119,14 @@ export default async function CafePage() {
           </FadeUp>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Café", url: "/cafe" }])
+          ),
+        }}
+      />
     </>
   );
 }

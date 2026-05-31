@@ -10,11 +10,13 @@ import {
   resolveManagedImage,
 } from "@/lib/public-content";
 import { resolveSlotOr, resolveSlotImage } from "@/lib/site-images";
+import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Experiences Near Ballu's",
   description:
     "Discover attractions near Ballu's Resort in Manali — Solang Valley, Old Manali, Hadimba Temple, Rohtang Pass, and more.",
+  alternates: { canonical: "/experiences" },
 };
 
 export default async function ExperiencesPage() {
@@ -131,6 +133,14 @@ export default async function ExperiencesPage() {
           </StaggerGroup>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Experiences", url: "/experiences" }])
+          ),
+        }}
+      />
     </>
   );
 }

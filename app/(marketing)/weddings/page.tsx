@@ -6,11 +6,13 @@ import { InquiryForm } from "@/components/marketing/inquiry-form";
 import { ManagedImage } from "@/components/marketing/managed-image";
 import { getGalleryImagePool, resolveManagedImage } from "@/lib/public-content";
 import { resolveSlotOr } from "@/lib/site-images";
+import { breadcrumbSchema, eventVenueSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Destination Weddings",
   description:
     "Plan your dream destination wedding in the Himalayas at Ballu's Resort, Manali. Riverside venues, mountain views, personal service.",
+  alternates: { canonical: "/weddings" },
 };
 
 const REASONS = [
@@ -187,6 +189,18 @@ export default async function WeddingsPage() {
           </FadeUp>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventVenueSchema("wedding")) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Destination Weddings", url: "/weddings" }])
+          ),
+        }}
+      />
     </>
   );
 }

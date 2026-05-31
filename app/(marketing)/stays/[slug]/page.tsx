@@ -26,6 +26,7 @@ import {
   resolveManagedImage,
 } from "@/lib/public-content";
 import { resolveSlotOr, type SiteSlotKey } from "@/lib/site-images";
+import { breadcrumbSchema, hotelRoomSchema } from "@/lib/seo";
 
 type Params = Promise<{ slug: string }>;
 
@@ -70,11 +71,12 @@ export async function generateMetadata({
 
   const description =
     extractTextContent(suite.description).slice(0, 160) ||
-    `${suite.title} at Ballu's Resort.`;
+    `${suite.title} at Ballu's Resort & Café, Manali — ${suite.viewType} views.`;
 
   return {
     title: suite.title,
     description,
+    alternates: { canonical: `/stays/${slug}` },
     openGraph: {
       images: heroImage ? [{ url: heroImage, width: 1200, height: 630 }] : undefined,
     },
@@ -113,6 +115,8 @@ export default async function SuitePage({ params }: { params: Params }) {
     Array.isArray(suite.amenities) && suite.amenities.length
       ? suite.amenities
       : ["Premium Stay", "Room Service", "Parking"];
+
+  const descriptionText = extractTextContent(suite.description);
 
   return (
     <>
@@ -203,6 +207,33 @@ export default async function SuitePage({ params }: { params: Params }) {
           </FadeUp>
         </div>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            hotelRoomSchema({
+              title: suite.title,
+              slug: suite.slug,
+              viewType: suite.viewType,
+              amenities,
+              description: descriptionText.slice(0, 300) || undefined,
+            })
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", url: "/" },
+              { name: "Stays & Suites", url: "/stays" },
+              { name: suite.title, url: `/stays/${suite.slug}` },
+            ])
+          ),
+        }}
+      />
     </>
   );
 }

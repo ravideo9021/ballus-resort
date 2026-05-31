@@ -44,9 +44,6 @@ export async function generateMetadata(): Promise<Metadata> {
       "Ballu's Resort",
       "premium resort Himachal Pradesh",
     ],
-    alternates: {
-      canonical: "/",
-    },
     openGraph: {
       type: "website",
       locale: "en_IN",

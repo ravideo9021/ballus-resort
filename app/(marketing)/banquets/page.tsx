@@ -6,11 +6,13 @@ import { SectionHeading } from "@/components/marketing/section-heading";
 import { ManagedImage } from "@/components/marketing/managed-image";
 import { getGalleryImagePool, resolveManagedImage } from "@/lib/public-content";
 import { resolveSlotOr } from "@/lib/site-images";
+import { breadcrumbSchema, eventVenueSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Banquet Halls",
   description:
     "Namaste Banquet (110+ indoor) and Devbhumi Banquet (grand outdoor) at Ballu's Resort, Manali.",
+  alternates: { canonical: "/banquets" },
 };
 
 const HALLS = [
@@ -138,6 +140,18 @@ export default async function BanquetsPage() {
           </FadeUp>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventVenueSchema("banquet")) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Banquet Halls", url: "/banquets" }])
+          ),
+        }}
+      />
     </>
   );
 }

@@ -9,11 +9,13 @@ import {
   resolveManagedImage,
 } from "@/lib/public-content";
 import { resolveSlotOr } from "@/lib/site-images";
+import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Journal",
   description:
     "Travel notes, seasonal guides, and stories from the Beas Valley — the Ballu's Resort journal.",
+  alternates: { canonical: "/journal" },
 };
 
 export default async function JournalPage() {
@@ -85,6 +87,14 @@ export default async function JournalPage() {
           </StaggerGroup>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Journal", url: "/journal" }])
+          ),
+        }}
+      />
     </>
   );
 }

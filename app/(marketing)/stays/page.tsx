@@ -10,11 +10,13 @@ import {
   resolveManagedImage,
 } from "@/lib/public-content";
 import { resolveSlotOr } from "@/lib/site-images";
+import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Stays & Suites",
   description:
     "Luxury mountain-view and riverside suites at Ballu's Resort, Manali. Wake to Himalayan peaks or the Beas River.",
+  alternates: { canonical: "/stays" },
 };
 
 export default async function StaysPage() {
@@ -122,6 +124,14 @@ export default async function StaysPage() {
           ))}
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Stays & Suites", url: "/stays" }])
+          ),
+        }}
+      />
     </>
   );
 }

@@ -221,3 +221,13 @@ export async function getPublicTestimonials() {
     .from(testimonials)
     .orderBy(desc(testimonials.featured), desc(testimonials.createdAt));
 }
+
+export async function getAggregateRating() {
+  const rows = await db.select({ rating: testimonials.rating }).from(testimonials);
+  if (!rows.length) return null;
+  const sum = rows.reduce((acc, r) => acc + r.rating, 0);
+  return {
+    ratingValue: Math.round((sum / rows.length) * 10) / 10,
+    reviewCount: rows.length,
+  };
+}

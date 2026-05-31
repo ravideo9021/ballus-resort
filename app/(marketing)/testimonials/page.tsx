@@ -3,11 +3,13 @@ import { FadeUp, StaggerGroup, StaggerItem } from "@/components/motion/fade-up";
 import { SectionHeading } from "@/components/marketing/section-heading";
 import { Star } from "lucide-react";
 import { getPublicTestimonials } from "@/lib/public-content";
+import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Guest Testimonials \u2014 Ballu\u2019s Resort & Caf\u00e9",
   description:
     "Read what our guests say about their stay at Ballu\u2019s Resort & Caf\u00e9, Manali.",
+  alternates: { canonical: "/testimonials" },
 };
 
 export default async function TestimonialsPage() {
@@ -76,6 +78,14 @@ export default async function TestimonialsPage() {
           )}
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Guest Testimonials", url: "/testimonials" }])
+          ),
+        }}
+      />
     </>
   );
 }

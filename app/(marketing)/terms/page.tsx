@@ -7,6 +7,7 @@ import { getPageRecord } from "@/lib/public-content";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Terms of service for Ballu's Resort & Café, Manali.",
+  alternates: { canonical: "/terms" },
 };
 
 export default async function TermsPage() {

@@ -6,11 +6,13 @@ import { ManagedImage } from "@/components/marketing/managed-image";
 import { getGalleryImagePool, getPageRecord, resolveManagedImage } from "@/lib/public-content";
 import { extractTextContent } from "@/components/marketing/rich-content";
 import { resolveSlotOr } from "@/lib/site-images";
+import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Our Story",
   description:
     "Discover the story behind Ballu's Resort & Café — a riverside sanctuary in the Beas Valley, Manali.",
+  alternates: { canonical: "/story" },
 };
 
 export default async function StoryPage() {
@@ -101,6 +103,14 @@ export default async function StoryPage() {
           </FadeUp>
         </div>
       </article>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Our Story", url: "/story" }])
+          ),
+        }}
+      />
     </>
   );
 }

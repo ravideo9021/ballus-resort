@@ -3,11 +3,13 @@ import { FadeUp } from "@/components/motion/fade-up";
 import { GalleryGrid } from "@/components/marketing/gallery-grid";
 import { ManagedImage } from "@/components/marketing/managed-image";
 import { getGalleryImagePool, resolveManagedImage } from "@/lib/public-content";
+import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Gallery",
   description:
     "Explore Ballu's Resort & Café in Manali through our gallery — property, cabins, café, weddings, and Himalayan landscapes.",
+  alternates: { canonical: "/gallery" },
 };
 
 const CATEGORIES = ["Property", "Cabins", "Café", "Weddings", "Conferences", "Events", "Snow", "Monsoon"];
@@ -49,6 +51,14 @@ export default async function GalleryPage() {
           <GalleryGrid images={images} categories={categories.length ? categories : CATEGORIES} />
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Gallery", url: "/gallery" }])
+          ),
+        }}
+      />
     </>
   );
 }

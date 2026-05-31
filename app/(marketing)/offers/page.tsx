@@ -4,11 +4,13 @@ import { SectionHeading } from "@/components/marketing/section-heading";
 import { ManagedImage } from "@/components/marketing/managed-image";
 import { CalendarDays, Tag } from "lucide-react";
 import { getActiveOffers } from "@/lib/public-content";
+import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Special Offers — Ballu’s Resort & Café",
   description:
     "Exclusive offers and seasonal packages at Ballu’s Resort & Café, Manali.",
+  alternates: { canonical: "/offers" },
 };
 
 function formatDate(d: Date | null | undefined) {
@@ -101,6 +103,14 @@ export default async function OffersPage() {
           )}
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Special Offers", url: "/offers" }])
+          ),
+        }}
+      />
     </>
   );
 }

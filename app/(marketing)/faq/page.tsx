@@ -10,11 +10,13 @@ import {
 } from "@/lib/public-content";
 import { resolveSlotOr } from "@/lib/site-images";
 import { faqPageSchema } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions",
   description:
     "Answers to common questions about staying at Ballu's Resort & Café in Manali — check-in, dining, weddings, travel, and policies.",
+  alternates: { canonical: "/faq" },
 };
 
 const FAQ_DATA = [
@@ -132,6 +134,14 @@ export default async function FAQPage() {
           ))}
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "FAQ", url: "/faq" }])
+          ),
+        }}
+      />
     </>
   );
 }

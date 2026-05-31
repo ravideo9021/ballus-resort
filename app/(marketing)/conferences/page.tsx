@@ -6,11 +6,13 @@ import { InquiryForm } from "@/components/marketing/inquiry-form";
 import { ManagedImage } from "@/components/marketing/managed-image";
 import { getGalleryImagePool, resolveManagedImage } from "@/lib/public-content";
 import { resolveSlotOr } from "@/lib/site-images";
+import { breadcrumbSchema, eventVenueSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Conferences & Corporate Events",
   description:
     "Premium conference venue in Manali with 110+ capacity, AV setup, registration desk, and on-site accommodation.",
+  alternates: { canonical: "/conferences" },
 };
 
 const FEATURES = [
@@ -111,6 +113,18 @@ export default async function ConferencesPage() {
           </FadeUp>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventVenueSchema("conference")) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Conferences & Corporate Events", url: "/conferences" }])
+          ),
+        }}
+      />
     </>
   );
 }

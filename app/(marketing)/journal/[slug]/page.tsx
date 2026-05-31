@@ -8,7 +8,7 @@ import {
   extractTextContent,
   RichContent,
 } from "@/components/marketing/rich-content";
-import { blogPostSchema } from "@/lib/seo";
+import { blogPostSchema, breadcrumbSchema } from "@/lib/seo";
 import {
   getGalleryImagePool,
   getPublishedPostBySlug,
@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: post.title,
     description: excerpt,
+    alternates: { canonical: `/journal/${slug}` },
     openGraph: {
       type: "article",
       images: coverImage ? [{ url: coverImage }] : undefined,
@@ -108,6 +109,19 @@ export default async function JournalPostPage({ params }: { params: Params }) {
           </FadeUp>
         </div>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", url: "/" },
+              { name: "Journal", url: "/journal" },
+              { name: post.title, url: `/journal/${slug}` },
+            ])
+          ),
+        }}
+      />
 
       <article className="bg-[#F5EFE3] py-24">
         <div className="max-w-3xl mx-auto px-6">

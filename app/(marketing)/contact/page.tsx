@@ -11,11 +11,13 @@ import {
   resolveManagedImage,
 } from "@/lib/public-content";
 import { resolveSlotOr } from "@/lib/site-images";
+import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
     "Plan your visit to Ballu's Resort & Café in Manali. Call, WhatsApp, or send us a message — we respond within 24 hours.",
+  alternates: { canonical: "/contact" },
 };
 
 export default async function ContactPage() {
@@ -174,6 +176,14 @@ export default async function ContactPage() {
           </div>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([{ name: "Home", url: "/" }, { name: "Contact", url: "/contact" }])
+          ),
+        }}
+      />
     </>
   );
 }

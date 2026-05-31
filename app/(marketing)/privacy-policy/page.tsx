@@ -7,6 +7,7 @@ import { getPageRecord } from "@/lib/public-content";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Privacy policy for Ballu's Resort & Café, Manali.",
+  alternates: { canonical: "/privacy-policy" },
 };
 
 export default async function PrivacyPolicyPage() {
